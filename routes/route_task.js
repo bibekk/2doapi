@@ -64,8 +64,8 @@ router.put('/updateTask', (req,res) => {
 router.put('/updateTaskDetail', (req,res) => {
   // console.log(req.body)
   // return
-  const stmt = db.prepare("UPDATE task set task_title=?,note=?,duedate=? WHERE task_id=?")
-  const info = stmt.run(req.body.task_title, req.body.note, req.body.duedate,req.query.task_id)
+  const stmt = db.prepare("UPDATE task set task_title=?,note=?,duedate=?, completed=? WHERE task_id=?")
+  const info = stmt.run(req.body.task_title, req.body.note, req.body.duedate,req.body.completed,req.query.task_id)
   
   if(info.changes === 1){
     const stmtdel = db.prepare("DELETE FROM tasktag where task_id=?")

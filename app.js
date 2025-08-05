@@ -23,7 +23,7 @@ app.use('/tag',tag)
 
 process.env.TYPE = 'PROD'
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8088
 app.listen(PORT,()=>{
   console.log(`Listening to PORT: ${PORT}`)
 })
