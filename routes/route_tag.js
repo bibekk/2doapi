@@ -16,7 +16,7 @@ router.post('/addtag', (req, res) => {
   const stmt = db.prepare("INSERT INTO tags(tag, note) VALUES(?,?)")
   const info = stmt.run(`${req.body.tag}`,`${req.body.note}`)
   if(info.changes === 1){
-    res.json(true)
+    res.json({status: true,lastInsertRowid: info.lastInsertRowid})
   }
 })
 

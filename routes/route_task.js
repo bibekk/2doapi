@@ -25,13 +25,22 @@ router.post('/addtask', (req, res) => {
     for(var i = 0 ; i < tags.length ; i++){
       const stmt2 = db.prepare("INSERT INTO tasktag VALUES(?,?)")
       const info2 = stmt2.run(info.lastInsertRowid, parseInt(tags[i]))
-      console.log(info2)
+      //console.log(info2)
     }
     res.json(true)
   }
 })
 
-router.delete('/deletetask', (req,res) => { console.log(req.query.task_id)
+router.get('/gettask',(req,res) =>{
+  const stmt = db.prepare('SELECT * from task where task_id=?')
+  const row= stmt.get(req.query.task_id)
+  if (!row) {
+    return res.status(404).json({ message: 'Task not found' });
+  }
+  res.json(row)
+})
+
+router.delete('/deletetask', (req,res) => { //console.log(req.query.task_id)
   const stmt = db.prepare('DELETE from tasktag WHERE task_id=?')
   const info = stmt.run(req.query.task_id)
   //console.log(info)
